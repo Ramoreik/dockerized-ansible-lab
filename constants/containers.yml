@@ -7,21 +7,21 @@ containers:
         aliases:
           - master
 
-  - name: ansible_slave
+  - name: ansible_slave_1
     image: ansible_slave
     networks:
       - name: ansible_network
         aliases:
           - slave1
 
-  - name: ansible_slave
+  - name: ansible_slave_2
     image: ansible_slave
     networks:
       - name: ansible_network
         aliases:
           - slave2
 
-  - name: ansible_slave
+  - name: ansible_slave_3
     image: ansible_slave
     networks:
       - name: ansible_network
