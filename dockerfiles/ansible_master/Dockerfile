@@ -36,8 +36,9 @@ RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
 RUN echo "${SSH_PUBLIC_KEY}" > /root/.ssh/id_rsa.pub
 RUN chmod 600 /root/.ssh/id_rsa
 
+RUN mkdir /var/opt/ansible
 WORKDIR /var/opt/ansible
-COPY ./ansible_master .
+COPY playbooks .
 
 # Disable requiretty.
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
