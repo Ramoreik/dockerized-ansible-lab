@@ -1,0 +1,29 @@
+containers:
+
+  - name: ansible_master
+    image: ansible_master
+    networks:
+      - name: ansible_network
+        aliases:
+          - master
+
+  - name: ansible_slave
+    image: ansible_slave
+    networks:
+      - name: ansible_network
+        aliases:
+          - slave1
+
+  - name: ansible_slave
+    image: ansible_slave
+    networks:
+      - name: ansible_network
+        aliases:
+          - slave2
+
+  - name: ansible_slave
+    image: ansible_slave
+    networks:
+      - name: ansible_network
+        aliases:
+          - slave3

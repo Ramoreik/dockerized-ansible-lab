@@ -1,0 +1,36 @@
+---
+
+- debug:
+    msg: "{{ image }}"
+  when: image is defined
+
+- debug:
+    msg: "{{ ansible_private_key }}"
+  when: debug is defined
+
+- debug:
+    msg: "{{ ansible_public_key }}"
+  when: debug is defined
+
+- name: "Creating image {{ image.name }}"
+  docker_image:
+    name: "{{ image.name }}"
+    state:  present
+    force_source: "{{ force_rebuild }}"
+    source: build
+    build:
+      pull: no
+      path: "{{ image.path }}"
+      args:
+        SSH_PRIVATE_KEY: "{{ ansible_private_key }}"
+        SSH_PUBLIC_KEY: "{{ ansible_public_key }}"
+  register: creation_result
+  when: image is defined
+
+- debug:
+    msg: " the object image is not defined ! please define it "
+  when: image is not defined
+
+- debug:
+    msg: "{{ creation_result }}"
+  when: creation_result is defined

@@ -1,0 +1,30 @@
+---
+
+- debug:
+    msg: "{{ container }}"
+  when: container is defined
+
+- name: "Creating container {{ container.name }}"
+  docker_container:
+    name: "{{ container.name }}"
+    image: "{{ container.image }}"
+    volumes: "{{ container.volumes }}"
+    networks: "{{ container.networks }}"
+  register: creation_result
+  when: container is defined and container.volumes is defined
+
+- name: "Creating container {{ container.name }}"
+  docker_container:
+    name: "{{ container.name }}"
+    image: "{{ container.image }}"
+    networks: "{{ container.networks }}"
+  register: creation_result
+  when: container is defined and container.volumes is not defined
+
+- debug:
+    msg: " the image container is not defined ! please define it"
+  when: container is not defined
+
+- debug:
+    msg: "{{ creation_result }}"
+  when: creation_result is defined

@@ -1,0 +1,3 @@
+---
+# defaults file for create-docker-image
+force_rebuild: False

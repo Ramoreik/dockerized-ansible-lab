@@ -1,0 +1,19 @@
+---
+# tasks file for create-docker-network
+- debug:
+    msg: "{{ network }}"
+  when: network is defined
+
+- name: "Create Network {{ network.name }}"
+  docker_network:
+    name: "{{ network.name }}"
+  register: creation_result
+  when: network is defined
+
+- debug:
+    msg: "Network is not defined ! please defined it"
+  when: network is not defined
+
+- debug:
+    msg: creation_result
+  when: creation_result is defined

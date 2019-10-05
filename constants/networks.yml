@@ -1,0 +1,2 @@
+networks:
+  - name: ansible_network

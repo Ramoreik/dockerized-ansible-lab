@@ -1,0 +1,23 @@
+# Important directories
+images_dir: "{{ playbook_dir }}/dockerfiles"
+ssh_keys_dir: "{{ images_dir }}/ssh"
+
+# Variables for SSH keys
+ansible_private_key: "{{ lookup('file', '{{ ssh_keys_dir }}/id_rsa') }}"
+ansible_public_key: "{{ lookup('file', '{{ ssh_keys_dir }}/id_rsa.pub') }}"
+
+# Force rebuild images ?
+force_rebuild: False
+
+# Define Images
+images:
+  - name: ansible_slave
+    path: "{{ images_dir }}/ansible_slave"
+
+  - name: ansible_master
+    path: "{{ images_dir }}/ansible_master"
+
+
+
+
+
