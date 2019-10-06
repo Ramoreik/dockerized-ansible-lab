@@ -3,7 +3,7 @@
        Configuration driven deployment of a
        service on Docker using Ansible
     hosts:
-      - localhost
+      - "{{ dest }}"
     vars_files:
       - constants/images.yml
       - constants/containers.yml
