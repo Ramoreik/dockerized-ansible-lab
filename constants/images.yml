@@ -13,11 +13,24 @@ force_rebuild: False
 images:
   - name: ansible_slave
     path: "{{ images_dir }}/ansible_slave"
+    source: build
+    args:
+      SSH_PRIVATE_KEY: "{{ ansible_private_key }}"
+
 
   - name: ansible_master
     path: "{{ images_dir }}/ansible_master"
+    source: build
+    args:
+      SSH_PRIVATE_KEY: "{{ ansible_private_key }}"
+      SSH_PUBLIC_KEY: "{{ ansible_public_key }}"
 
 
+  - name: jenkins:latest
+    source: pull
+
+  - name: gitlab/gitlab-ce:latest
+    source: pull
 
 
 

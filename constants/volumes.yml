@@ -1,0 +1,5 @@
+volumes:
+  - name: ansible_master_data
+  - name: gitlab_configs
+  - name: gitlab_logs
+  - name: gitlab_data

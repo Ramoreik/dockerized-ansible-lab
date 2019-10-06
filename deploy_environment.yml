@@ -1,33 +1,46 @@
 ---
-  - name: Configuration driven deployment of a service on Docker using Ansible
+  - name: >
+       Configuration driven deployment of a
+       service on Docker using Ansible
     hosts:
       - localhost
     vars_files:
       - constants/images.yml
       - constants/containers.yml
       - constants/networks.yml
+      - constants/volumes.yml
 
     tasks:
       - name: Create necessary images
         include_role:
           name: create-docker-image
-        with_items: "{{ images }}"
+        loop: "{{ images }}"
         loop_control:
           loop_var: image
+        when: images is defined
 
 
       - name: Create Networks
         include_role:
           name: create-docker-network
-        with_items: "{{ networks }}"
+        loop: "{{ networks }}"
         loop_control:
           loop_var: network
+        when: networks is defined
 
+      - name: Create Volumes
+        include_role:
+          name: create-docker-volume
+        loop: "{{ volumes }}"
+        loop_control:
+          loop_var: volume
+        when: volumes is defined
 
       - name: Create Containers
         include_role:
           name: create-docker-container
-        with_items: "{{ containers }}"
+        loop: "{{ containers }}"
         loop_control:
           loop_var: container
+        when: containers is defined
 

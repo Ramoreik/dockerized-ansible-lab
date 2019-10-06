@@ -2,29 +2,32 @@
 
 - debug:
     msg: "{{ container }}"
+  when: container is defined and debug is defined
+
+
+- name: "Creating container {{ container.name }}"
+  docker_container:
+    name: "{{ container.name }}"
+    state: "{{ desired_state | default(omit) }}"
+    image: "{{ container.image }}"
+    hostname: "{{ container.hostname | default(omit) }}"
+    volumes: "{{ container.volumes | default(omit) }}"
+    networks: "{{ container.networks | default(omit) }}"
+    ports: "{{ container.ports | default(omit) }}"
+    restart_policy: "{{ container.restart_policy | default(omit) }}"
+  register: creation_result
   when: container is defined
 
-- name: "Creating container {{ container.name }}"
-  docker_container:
-    name: "{{ container.name }}"
-    image: "{{ container.image }}"
-    volumes: "{{ container.volumes }}"
-    networks: "{{ container.networks }}"
-  register: creation_result
-  when: container is defined and container.volumes is defined
-
-- name: "Creating container {{ container.name }}"
-  docker_container:
-    name: "{{ container.name }}"
-    image: "{{ container.image }}"
-    networks: "{{ container.networks }}"
-  register: creation_result
-  when: container is defined and container.volumes is not defined
 
 - debug:
     msg: " the image container is not defined ! please define it"
-  when: container is not defined
+  when: >
+      container is not defined
+      and debug is defined
+
 
 - debug:
     msg: "{{ creation_result }}"
-  when: creation_result is defined
+  when: >
+      creation_result is defined
+      and debug is defined

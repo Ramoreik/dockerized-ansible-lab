@@ -1,0 +1,27 @@
+---
+- debug:
+    msg: "{{ volume }}"
+  when: >
+        volume is defined
+        and debug is defined
+
+
+- name: "Create volume {{ volume.name }}"
+  docker_volume:
+    name: "{{ volume.name }}"
+  register: creation_result
+  when: volume is defined
+
+
+- debug:
+    msg: " the volume is not defined ! please define it"
+  when: >
+        volume is not defined
+        and debug is defined
+
+
+- debug:
+    msg: "{{ creation_result }}"
+  when: >
+        creation_result is defined
+        and debug is defined

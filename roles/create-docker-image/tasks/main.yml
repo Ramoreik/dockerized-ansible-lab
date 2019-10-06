@@ -2,34 +2,54 @@
 
 - debug:
     msg: "{{ image }}"
-  when: image is defined
+  when: >
+      image is defined
+      and debug is defined
+
 
 - debug:
     msg: "{{ ansible_private_key }}"
   when: debug is defined
 
+
 - debug:
     msg: "{{ ansible_public_key }}"
   when: debug is defined
 
-- name: "Creating image {{ image.name }}"
+
+- name: "Creating image {{ image.name }} using dockerfile"
   docker_image:
     name: "{{ image.name }}"
     state:  present
     force_source: "{{ force_rebuild }}"
     source: build
     build:
+      args: "{{ image.args }}"
       pull: no
       path: "{{ image.path }}"
-      args:
-        SSH_PRIVATE_KEY: "{{ ansible_private_key }}"
-        SSH_PUBLIC_KEY: "{{ ansible_public_key }}"
   register: creation_result
-  when: image is defined
+  when: >
+      image is defined
+      and image.source == "build"
+
+
+- name: "Creating image {{ image.name }} using pull"
+  docker_image:
+    name: "{{ image.name }}"
+    state: present
+    force_source: "{{ force_rebuild }}"
+    source: pull
+  when: >
+      image is defined
+      and image.source == "pull"
+
 
 - debug:
     msg: " the object image is not defined ! please define it "
-  when: image is not defined
+  when: >
+      image is not defined
+      and debug is defined
+
 
 - debug:
     msg: "{{ creation_result }}"
