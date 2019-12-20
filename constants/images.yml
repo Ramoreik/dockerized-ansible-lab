@@ -11,11 +11,11 @@ force_rebuild: False
 
 # Define Images
 images:
-  - name: ansible_slave
-    path: "{{ images_dir }}/ansible_slave"
-    source: build
-    args:
-      SSH_PRIVATE_KEY: "{{ ansible_private_key }}"
+  # - name: ansible_slave
+  #   path: "{{ images_dir }}/ansible_slave"
+  #   source: build
+  #   args:
+  #     SSH_PRIVATE_KEY: "{{ ansible_public_key }}"
 
 
   - name: ansible_master
@@ -26,11 +26,18 @@ images:
       SSH_PUBLIC_KEY: "{{ ansible_public_key }}"
 
 
-  - name: jenkins:latest
-    source: pull
+  - name: ansible_mq_slave
+    path: "{{ images_dir }}/mq-container"
+    source: build
+    args:
+      SSH_PUBLIC_KEY: "{{ ansible_public_key }}"
 
-  - name: gitlab/gitlab-ce:latest
-    source: pull
+
+  # - name: jenkins:latest
+  #   source: pull
+
+  # - name: gitlab/gitlab-ce:latest
+  #   source: pull
 
 
 

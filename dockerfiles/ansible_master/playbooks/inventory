@@ -1,4 +1,5 @@
 [slaves]
-slave1
-slave2
-slave3
+slave_mq
+[slaves:vars]
+ansible_become=yes
+ansible_become_user=mqm

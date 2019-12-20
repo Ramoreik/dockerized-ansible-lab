@@ -1,0 +1,9 @@
+---
+  - name: "Test playbook for MQSC module"
+    hosts: slave_mq
+    tasks:
+      - name: Make changes using MQSC
+        mqsc:
+          qmgr:
+            name: "test"
+            state: "{{ qmgr_state }}"

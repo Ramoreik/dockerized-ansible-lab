@@ -48,4 +48,5 @@ RUN mkdir -p /etc/ansible
 # RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
 VOLUME ["/sys/fs/cgroup"]
+VOLUME ["/var/opt/ansible"]
 CMD ["/usr/lib/systemd/systemd"]

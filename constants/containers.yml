@@ -3,58 +3,48 @@ containers:
   - name: ansible_master
     image: ansible_master
     volumes:
-      - ansible_master_data:/root/
+      - /var/opt/ansible_master/:/var/opt/ansible
+        #      - ansible_master_data:/root/
     networks:
       - name: ansible_network
         aliases:
           - master
 
-  - name: ansible_slave_1
-    image: ansible_slave
-    networks:
-      - name: ansible_network
-        aliases:
-          - slave1
+            # - name: ansible_slave_1
+            #    image: ansible_mq_slave
+            #    env: 
+            #      LICENSE: accept
+            #    networks:
+            #      - name: ansible_network
+            #        aliases:
+            #          - slave_mq
 
-  - name: ansible_slave_2
-    image: ansible_slave
-    networks:
-      - name: ansible_network
-        aliases:
-          - slave2
+# ----- Exemples of stock images -------
+  # - name: jenkins_niflheim
+  #   restart_policy: always
+  #   image: jenkins:latest
+  #   ports:
+  #     - 8080:8080
+  #     - 50000:50000
+  #   networks:
+  #     - name: niflheim_tools
+  #       aliases:
+  #         - jenkins_niflheim
 
-  - name: ansible_slave_3
-    image: ansible_slave
-    networks:
-      - name: ansible_network
-        aliases:
-          - slave3
-
-  - name: jenkins_niflheim
-    restart_policy: always
-    image: jenkins:latest
-    ports:
-      - 8080:8080
-      - 50000:50000
-    networks:
-      - name: niflheim_tools
-        aliases:
-          - jenkins_niflheim
-
-  - name: gitlab_niflheim
-    hostname: gitlab.niflheim.com
-    restart_policy: always
-    image: gitlab/gitlab-ce:latest
-    netwrks:
-      - name: niflheim_tools
-        aliases:
-          - gitlab_niflheim
-    volumes:
-      - gitlab_configs:/etc/gitlab
-      - gitlab_logs:/var/log/gitlab
-      - gitlab_data:/var/opt/gitlab
-    ports:
-      - 443:443
-      - 80:80
-      - "9999:22"
+  # - name: gitlab_niflheim
+  #   hostname: gitlab.niflheim.com
+  #   restart_policy: always
+  #   image: gitlab/gitlab-ce:latest
+  #   netwrks:
+  #     - name: niflheim_tools
+  #       aliases:
+  #         - gitlab_niflheim
+  #   volumes:
+  #     - gitlab_configs:/etc/gitlab
+  #     - gitlab_logs:/var/log/gitlab
+  #     - gitlab_data:/var/opt/gitlab
+  #   ports:
+  #     - 443:443
+  #     - 80:80
+  #     - "9999:22"
 

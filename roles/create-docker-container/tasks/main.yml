@@ -14,6 +14,7 @@
     volumes: "{{ container.volumes | default(omit) }}"
     networks: "{{ container.networks | default(omit) }}"
     ports: "{{ container.ports | default(omit) }}"
+    env: "{{ container.env | default(omit) }}"
     restart_policy: "{{ container.restart_policy | default(omit) }}"
   register: creation_result
   when: container is defined

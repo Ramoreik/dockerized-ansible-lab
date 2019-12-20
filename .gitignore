@@ -2,3 +2,4 @@
 **/*.pyc
 **/id_rsa*
 inventory
+**/.vscode
